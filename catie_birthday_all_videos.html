@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catie's Birthday</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background-color: #111;
+      color: white;
+      padding: 2em;
+    }
+    iframe {
+      margin: 1em auto;
+      display: block;
+      border: none;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>New Video Every Hour!</h1>
+  <div id="video-container"></div>
+
+  <script>
+    const videoURLs = [
+      "https://www.youtube.com/embed/VIDEO_ID_1",
+      "https://www.youtube.com/embed/VIDEO_ID_2",
+      "https://www.youtube.com/embed/VIDEO_ID_3",
+      "https://www.youtube.com/embed/VIDEO_ID_4",
+      // Add more as needed
+    ];
+
+    const container = document.getElementById("video-container");
+
+    for (let i = 0; i < videoURLs.length; i++) {
+      const iframe = document.createElement("iframe");
+      iframe.src = videoURLs[i];
+      iframe.width = "560";
+      iframe.height = "315";
+      iframe.allowFullscreen = true;
+      container.appendChild(iframe);
+    }
+  </script>
+</body>
+</html>
