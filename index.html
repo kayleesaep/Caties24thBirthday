@@ -45,4 +45,50 @@
       "https://www.youtube.com/embed/JGwWNGJdvx8",
       "https://www.youtube.com/embed/uelHwf8o7_U",
       "https://www.youtube.com/embed/YQHsXMglC9A",
-      "https://www.youtube
+      "https://www.youtube.com/embed/ZbZSe6N_BXs",
+      "https://www.youtube.com/embed/tVj0ZTS4WF4",
+      "https://www.youtube.com/embed/09R8_2nJtjg",
+      "https://www.youtube.com/embed/NLQ6P5SdgGE",
+      "https://www.youtube.com/embed/LsoLEjrDogU",
+      "https://www.youtube.com/embed/09R8_2nJtjg",
+      "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "https://www.youtube.com/embed/ZZ5LpwO-An4",
+      "https://www.youtube.com/embed/3JWTaaS7LdU"
+    ];
+
+    const now = new Date();
+
+    // Yesterday at midnight
+    const startTime = new Date();
+    startTime.setDate(startTime.getDate() - 1);
+    startTime.setHours(0, 0, 0, 0);
+
+    const hoursSinceStart = Math.floor((now - startTime) / (1000 * 60 * 60));
+    const container = document.getElementById("video-container");
+
+    if (hoursSinceStart < 0) {
+      container.innerText = "Come back later!";
+    } else if (hoursSinceStart >= 24) {
+      // Show all 24 videos if 24 hours passed
+      videoURLs.forEach(url => {
+        const iframe = document.createElement("iframe");
+        iframe.src = url;
+        iframe.width = "560";
+        iframe.height = "315";
+        iframe.allowFullscreen = true;
+        container.appendChild(iframe);
+      });
+    } else {
+      // Show videos up to the current hour (starting at 0)
+      for (let i = 0; i <= hoursSinceStart && i < videoURLs.length; i++) {
+        const iframe = document.createElement("iframe");
+        iframe.src = videoURLs[i];
+        iframe.width = "560";
+        iframe.height = "315";
+        iframe.allowFullscreen = true;
+        container.appendChild(iframe);
+      }
+    }
+  </script>
+</body>
+</html>
