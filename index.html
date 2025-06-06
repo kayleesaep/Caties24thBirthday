@@ -57,9 +57,10 @@
     ];
 
     const now = new Date();
+
+    // Today at 8 PM
     const startTime = new Date();
-    startTime.setDate(startTime.getDate() - 1);
-    startTime.setHours(0, 0, 0, 0);
+    startTime.setHours(20, 0, 0, 0); // 20:00 = 8 PM
 
     const hoursSinceStart = Math.floor((now - startTime) / (1000 * 60 * 60));
     const container = document.getElementById("video-container");
