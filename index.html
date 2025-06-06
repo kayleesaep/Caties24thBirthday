@@ -3,14 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Catie's Birthday - 24 Hour Videos</title>
+  <title>Happy Birthday Catie</title>
   <style>
     body {
       font-family: sans-serif;
       text-align: center;
-      background-color: #111;
-      color: white;
+      background-color: pink;
+      color: #222;
       padding: 2em;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 1em;
     }
     iframe {
       margin: 1em auto;
@@ -21,7 +25,7 @@
   </style>
 </head>
 <body>
-  <h1>New Video Every Hour — 24 Hours!</h1>
+  <h1>Happy Birthday Catie</h1>
   <div id="video-container"></div>
 
   <script>
@@ -54,7 +58,7 @@
 
     const now = new Date();
     const midnight = new Date();
-    midnight.setHours(0, 0, 0, 0); // set to today's midnight
+    midnight.setHours(0, 0, 0, 0); // today at midnight
 
     const diffInMs = now - midnight;
     const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
@@ -73,7 +77,3 @@
       }
     } else {
       container.innerText = "Come back at midnight!";
-    }
-  </script>
-</body>
-</html>
