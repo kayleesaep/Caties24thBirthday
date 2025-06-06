@@ -57,8 +57,6 @@
     ];
 
     const now = new Date();
-
-    // Yesterday at midnight
     const startTime = new Date();
     startTime.setDate(startTime.getDate() - 1);
     startTime.setHours(0, 0, 0, 0);
@@ -66,29 +64,21 @@
     const hoursSinceStart = Math.floor((now - startTime) / (1000 * 60 * 60));
     const container = document.getElementById("video-container");
 
-    if (hoursSinceStart < 0) {
+    let showCount = hoursSinceStart + 1;
+    if (showCount < 0) {
       container.innerText = "Come back later!";
-    } else if (hoursSinceStart >= 24) {
-      // Show all 24 videos if 24 hours passed
-      videoURLs.forEach(url => {
-        const iframe = document.createElement("iframe");
-        iframe.src = url;
-        iframe.width = "560";
-        iframe.height = "315";
-        iframe.allowFullscreen = true;
-        container.appendChild(iframe);
-      });
-    } else {
-      // Show videos up to the current hour (starting at 0)
-      for (let i = 0; i <= hoursSinceStart && i < videoURLs.length; i++) {
-        const iframe = document.createElement("iframe");
-        iframe.src = videoURLs[i];
-        iframe.width = "560";
-        iframe.height = "315";
-        iframe.allowFullscreen = true;
-        container.appendChild(iframe);
-      }
+      showCount = 0;
+    }
+    if (showCount > 24) showCount = 24;
+
+    for (let i = 0; i < showCount && i < videoURLs.length; i++) {
+      const iframe = document.createElement("iframe");
+      iframe.src = videoURLs[i];
+      iframe.width = "560";
+      iframe.height = "315";
+      iframe.allowFullscreen = true;
+      container.appendChild(iframe);
     }
   </script>
 </body>
-</html> 
+</html>
