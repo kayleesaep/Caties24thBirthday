@@ -28,9 +28,18 @@
   <h1>Happy 24th Birthday Catie</h1>
   <div id="video-container"></div>
 
+  <!-- Confetti library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
+    // Fire confetti on load
+    confetti({
+      particleCount: 150,
+      spread: 100,
+      origin: { y: 0.6 }
+    });
+
     const videoURLs = [
-      "https://youtu.be/ZDdK_bv69u0",
+      "https://www.youtube.com/embed/ZDdK_bv69u0?si=zW7rfNU9muHFeMFa", // fixed this one
       "https://www.youtube.com/embed/9bZkp7q19f0",
       "https://www.youtube.com/embed/3JZ_D3ELwOQ",
       "https://www.youtube.com/embed/L_jWHffIx5E",
@@ -50,34 +59,36 @@
       "https://www.youtube.com/embed/09R8_2nJtjg",
       "https://www.youtube.com/embed/NLQ6P5SdgGE",
       "https://www.youtube.com/embed/LsoLEjrDogU",
-      "https://www.youtube.com/embed/09R8_2nJtjg",
-      "https://www.youtube.com/embed/dQw4w9WgXcQ",
-      "https://www.youtube.com/embed/ZZ5LpwO-An4",
+      "https://www.youtube.com/embed/dQw4w9WgXcQ", // Rickroll
+      "https://www.youtube.com/embed/ZZ5LpwO-An4", // He-Man
       "https://www.youtube.com/embed/3JWTaaS7LdU"
     ];
 
     const now = new Date();
 
-    // Today at 8 PM
+    // Set start time to 11 PM *yesterday*
     const startTime = new Date();
-    startTime.setHours(20, 0, 0, 0); // 20:00 = 8 PM
+    startTime.setDate(startTime.getDate() - 1);
+    startTime.setHours(23, 0, 0, 0); // 23:00 = 11 PM
 
     const hoursSinceStart = Math.floor((now - startTime) / (1000 * 60 * 60));
     const container = document.getElementById("video-container");
 
     let showCount = hoursSinceStart + 1;
     if (showCount < 0) {
-      container.innerText = "Come back later!";
+      container.innerHTML = "<h2>The birthday countdown starts at 11 PM! 🎉 Come back soon!</h2>";
       showCount = 0;
     }
-    if (showCount > 24) showCount = 24;
+    if (showCount > videoURLs.length) showCount = videoURLs.length;
 
-    for (let i = 0; i < showCount && i < videoURLs.length; i++) {
+    for (let i = 0; i < showCount; i++) {
       const iframe = document.createElement("iframe");
       iframe.src = videoURLs[i];
       iframe.width = "560";
       iframe.height = "315";
       iframe.allowFullscreen = true;
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.title = `Birthday Video ${i + 1}`;
       container.appendChild(iframe);
     }
   </script>
