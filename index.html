@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Happy 24th Birthday Catie</title>
   <style>
     body {
@@ -26,26 +26,32 @@
 </head>
 <body>
   <h1>Happy 24th Birthday Catie</h1>
-  <div id="video-container"></div>
+  <div id="video-container">
+    <!-- Videos will load here -->
+  </div>
 
-  <!-- Confetti -->
+  <!-- Confetti library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
   <script>
-    confetti({
-      particleCount: 150,
-      spread: 100,
-      origin: { y: 0.6 }
-    });
+    try {
+      // Run confetti after page loads
+      confetti({
+        particleCount: 150,
+        spread: 100,
+        origin: { y: 0.6 }
+      });
+    } catch (e) {
+      console.error("Confetti error:", e);
+    }
 
+    // Video URLs (embed format)
     const videoURLs = [
-      "https://www.youtube.com/embed/ZDdK_bv69u0", // 1
-      "https://www.youtube.com/embed/oxlErVzh0Kc", // 2
-      "https://www.youtube.com/embed/e74XpwoTJNA", // 3
-      "https://www.youtube.com/embed/74xNOMM77JQ", // 4
-      "https://www.youtube.com/embed/-ArZ7wAaNlQ", // 5
-      "https://www.youtube.com/embed/lMfEhpQDjlw", // 6
-      "https://www.youtube.com/embed/H9g344kJmzE", // 7
-      "https://www.youtube.com/embed/1JHwOrQVMfA", // 8
-      "https://www.youtube.com/embed/nzXrj7KVKdI", // 9
-      "
+      "https://www.youtube.com/embed/ZDdK_bv69u0",
+      "https://www.youtube.com/embed/oxlErVzh0Kc",
+      "https://www.youtube.com/embed/e74XpwoTJNA",
+      "https://www.youtube.com/embed/74xNOMM77JQ",
+      "https://www.youtube.com/embed/-ArZ7wAaNlQ",
+      "https://www.youtube.com/embed/lMfEhpQDjlw",
+      "https://www.youtube.com/embed/H9g344kJmzE",
+      "https://www.youtube.com/embe
