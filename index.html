@@ -26,26 +26,17 @@
 </head>
 <body>
   <h1>Happy 24th Birthday Catie</h1>
-  <div id="video-container">
-    <!-- Videos will load here -->
-  </div>
+  <div id="video-container"></div>
 
-  <!-- Confetti library -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
   <script>
-    try {
-      // Run confetti after page loads
-      confetti({
-        particleCount: 150,
-        spread: 100,
-        origin: { y: 0.6 }
-      });
-    } catch (e) {
-      console.error("Confetti error:", e);
-    }
+    confetti({
+      particleCount: 150,
+      spread: 100,
+      origin: { y: 0.6 }
+    });
 
-    // Video URLs (embed format)
     const videoURLs = [
       "https://www.youtube.com/embed/ZDdK_bv69u0",
       "https://www.youtube.com/embed/oxlErVzh0Kc",
@@ -54,4 +45,24 @@
       "https://www.youtube.com/embed/-ArZ7wAaNlQ",
       "https://www.youtube.com/embed/lMfEhpQDjlw",
       "https://www.youtube.com/embed/H9g344kJmzE",
-      "https://www.youtube.com/embe
+      "https://www.youtube.com/embed/1JHwOrQVMfA",
+      "https://www.youtube.com/embed/nzXrj7KVKdI",
+      "https://www.youtube.com/embed/TEoIEOfOk3A"
+    ];
+
+    const container = document.getElementById("video-container");
+
+    // Show ALL videos immediately — no time checks
+    videoURLs.forEach((url, index) => {
+      const iframe = document.createElement("iframe");
+      iframe.src = url;
+      iframe.width = "560";
+      iframe.height = "315";
+      iframe.allowFullscreen = true;
+      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      iframe.title = `Birthday Video ${index + 1}`;
+      container.appendChild(iframe);
+    });
+  </script>
+</body>
+</html>
