@@ -32,45 +32,20 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
   <script>
-    // 🎉 Confetti on load
     confetti({
       particleCount: 150,
       spread: 100,
       origin: { y: 0.6 }
     });
 
-   const videoURLs = [
-  "https://www.youtube.com/embed/ZDdK_bv69u0", // Video 1: your original
-  "https://www.youtube.com/embed/oxlErVzh0Kc", // Video 2
-  "https://www.youtube.com/embed/e74XpwoTJNA", // Video 3
-  "https://www.youtube.com/embed/74xNOMM77JQ", // Video 4
-  "https://www.youtube.com/embed/-ArZ7wAaNlQ", // Video 5
-  "https://www.youtube.com/embed/lMfEhpQDjlw", // Video 6
-  "https://www.youtube.com/embed/H9g344kJmzE", // Video 7
-  "https://www.youtube.com/embed/1JHwOrQVMfA", // Video 8
-  "https://www.youtube.com/embed/nzXrj7KVKdI", // Video 9
-  "https://www.youtube.com/embed/TEoIEOfOk3A", // Video 10
-  // You can keep the rest as they were:
-  "https://www.youtube.com/embed/pt8VYOfr8To",
-  "https://www.youtube.com/embed/CevxZvSJLk8",
-  "https://www.youtube.com/embed/3tmd-ClpJxA",
-  "https://www.youtube.com/embed/JGwWNGJdvx8",
-  "https://www.youtube.com/embed/uelHwf8o7_U",
-  "https://www.youtube.com/embed/YQHsXMglC9A",
-  "https://www.youtube.com/embed/ZbZSe6N_BXs",
-  "https://www.youtube.com/embed/tVj0ZTS4WF4",
-  "https://www.youtube.com/embed/09R8_2nJtjg",
-  "https://www.youtube.com/embed/NLQ6P5SdgGE",
-  "https://www.youtube.com/embed/LsoLEjrDogU",
-  "https://www.youtube.com/embed/dQw4w9WgXcQ",
-  "https://www.youtube.com/embed/ZZ5LpwO-An4",
-  "https://www.youtube.com/embed/3JWTaaS7LdU"
-
-    const now = new Date();
-
-    // Start time: 11 PM *yesterday*
-    const startTime = new Date();
-    startTime.setDate(startTime.getDate() - 1); // yesterday
-    startTime.setHours(23, 0, 0, 0); // 11 PM
-
-    const hoursSinceStart = Math.floor((now - startTime) / (1000 * 60 * 60));
+    const videoURLs = [
+      "https://www.youtube.com/embed/ZDdK_bv69u0", // 1
+      "https://www.youtube.com/embed/oxlErVzh0Kc", // 2
+      "https://www.youtube.com/embed/e74XpwoTJNA", // 3
+      "https://www.youtube.com/embed/74xNOMM77JQ", // 4
+      "https://www.youtube.com/embed/-ArZ7wAaNlQ", // 5
+      "https://www.youtube.com/embed/lMfEhpQDjlw", // 6
+      "https://www.youtube.com/embed/H9g344kJmzE", // 7
+      "https://www.youtube.com/embed/1JHwOrQVMfA", // 8
+      "https://www.youtube.com/embed/nzXrj7KVKdI", // 9
+      "
