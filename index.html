@@ -51,18 +51,25 @@
     ];
 
     const container = document.getElementById("video-container");
+    const now = new Date();
 
-    // Show ALL videos immediately — no time checks
-    videoURLs.forEach((url, index) => {
+    const startTime = new Date();
+    startTime.setDate(startTime.getDate() - 1);
+    startTime.setHours(23, 0, 0, 0); // 11 PM yesterday
+
+    const hoursSinceStart = Math.floor((now - startTime) / (1000 * 60 * 60));
+    let showCount = Math.min(Math.max(hoursSinceStart + 1, 0), videoURLs.length);
+
+    for (let i = 0; i < showCount; i++) {
       const iframe = document.createElement("iframe");
-      iframe.src = url;
+      iframe.src = videoURLs[i];
       iframe.width = "560";
       iframe.height = "315";
       iframe.allowFullscreen = true;
       iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-      iframe.title = `Birthday Video ${index + 1}`;
+      iframe.title = `Birthday Video ${i + 1}`;
       container.appendChild(iframe);
-    });
+    }
   </script>
 </body>
 </html>
