@@ -27,3 +27,196 @@
     #hour-info {
       font-size: 1.2em;
       margin-bottom: 0.5em;
+    }
+
+    #countdown {
+      font-size: 1em;
+      margin-bottom: 1em;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 560px;
+      height: 315px;
+      margin: 1em auto;
+      display: block;
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+
+    /* Sparkles */
+    .sparkle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: #ff69b4;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: float 6s infinite ease-in-out;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.8em;
+      }
+      #hour-info, #countdown {
+        font-size: 1em;
+      }
+    }
+
+    /* 🎀 Birthday Banner */
+    .banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 0.75em;
+      font-size: 1.5em;
+      background: linear-gradient(90deg, #ffc0cb, #ff69b4, #ffc0cb);
+      color: white;
+      text-shadow: 1px 1px 2px hotpink;
+      font-weight: bold;
+      z-index: 1000;
+      animation: wave 3s ease-in-out infinite;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    @keyframes wave {
+      0%   { transform: scale(1) rotate(0deg); }
+      25%  { transform: scale(1.01) rotate(0.5deg); }
+      50%  { transform: scale(1.02) rotate(-0.5deg); }
+      75%  { transform: scale(1.01) rotate(0.3deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- 🎀 Birthday Banner -->
+  <div class="banner">🎀 Happy 24th Birthday Catie 🎀</div>
+
+  <h1>Happy 24th Birthday Catie 🎉</h1>
+  <div id="hour-info"></div>
+  <div id="countdown">Calculating time...</div>
+  <div id="video-container"></div>
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    // 🎉 Confetti burst
+    confetti({
+      particleCount: 100,
+      spread: 100,
+      origin: { y: 0.6 }
+    });
+
+    // 💖 Sparkles
+    for (let i = 0; i < 50; i++) {
+      const sparkle = document.createElement("div");
+      sparkle.className = "sparkle";
+      sparkle.style.left = Math.random() * 100 + "vw";
+      sparkle.style.top = Math.random() * 100 + "vh";
+      sparkle.style.animationDuration = (Math.random() * 5 + 3) + "s";
+      document.body.appendChild(sparkle);
+    }
+
+    const videoURLs = [
+      "https://www.youtube.com/embed/ZDdK_bv69u0",
+      "https://www.youtube.com/embed/oxlErVzh0Kc",
+      "https://www.youtube.com/embed/e74XpwoTJNA",
+      "https://www.youtube.com/embed/74xNOMM77JQ",
+      "https://www.youtube.com/embed/-ArZ7wAaNlQ",
+      "https://www.youtube.com/embed/lMfEhpQDjlw",
+      "https://www.youtube.com/embed/H9g344kJmzE",
+      "https://www.youtube.com/embed/1JHwOrQVMfA",
+      "https://www.youtube.com/embed/nzXrj7KVKdI",
+      "https://www.youtube.com/embed/TEoIEOfOk3A",
+      "https://www.youtube.com/embed/S2SORpB4hFE",
+      "https://www.youtube.com/embed/qzzTkcPr_kc",
+      "https://www.youtube.com/embed/XwR7thaCgJI",
+      "https://www.youtube.com/embed/41Q4FAJ87hk",
+      "https://www.youtube.com/embed/ZX6uDNa1_Y0",
+      "https://www.youtube.com/embed/b3ZS6-j41YQ",
+      "https://www.youtube.com/embed/_HaMvvCSOM8",
+      "https://www.youtube.com/embed/l-hk8zejG8o",
+      "https://www.youtube.com/embed/-3-UVOCxkTM",
+      "https://www.youtube.com/embed/M_CqBXAzfkc",
+      "https://www.youtube.com/embed/Nlr5Rk2gDA0",
+      "https://www.youtube.com/embed/qRTnFO6_vno",
+      "https://www.youtube.com/embed/FwoPnCUyqmQ",
+      "https://www.youtube.com/embed/ed7s6BroOZU"
+    ];
+
+    const CST_OFFSET = -6;
+
+    function getCSTDate() {
+      const nowUTC = new Date();
+      const utc = nowUTC.getTime() + nowUTC.getTimezoneOffset() * 60000;
+      return new Date(utc + CST_OFFSET * 3600000);
+    }
+
+    function getCurrentVideoIndex() {
+      const now = getCSTDate();
+      const base = new Date(now);
+      base.setHours(23, 0, 0, 0);
+      if (now < base) base.setDate(base.getDate() - 1);
+      const msSinceBase = now - base;
+      const hoursSince = Math.floor(msSinceBase / (1000 * 60 * 60));
+      return hoursSince % 24;
+    }
+
+    function getNextUnlockTime() {
+      const now = getCSTDate();
+      const next = new Date(now);
+      next.setMinutes(0, 0, 0);
+      next.setHours(now.getHours() + 1);
+      return next;
+    }
+
+    const container = document.getElementById("video-container");
+    const hourInfo = document.getElementById("hour-info");
+    const videoIndex = getCurrentVideoIndex();
+
+    const iframe = document.createElement("iframe");
+    iframe.src = videoURLs[videoIndex];
+    iframe.allowFullscreen = true;
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.title = `Birthday Video ${videoIndex + 1}`;
+    container.appendChild(iframe);
+
+    hourInfo.innerText = `🎁 You're on hour ${videoIndex + 1} of 24`;
+
+    const countdown = document.getElementById("countdown");
+    function updateCountdown() {
+      const now = getCSTDate();
+      const next = getNextUnlockTime();
+      const diff = next - now;
+
+      if (diff <= 0) {
+        location.reload(); // 🔁 Auto-refresh
+        return;
+      }
+
+      const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((diff % (1000 * 60)) / 1000);
+      countdown.innerText = `⏳ Next video in ${mins}m ${secs}s (CST)`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
