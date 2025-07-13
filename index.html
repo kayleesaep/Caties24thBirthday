@@ -4,72 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Happy 24th Birthday Catie</title>
+
+  <!-- Google Font: Pacifico -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+
   <style>
     body {
-      font-family: sans-serif;
+      font-family: 'Pacifico', cursive;
       text-align: center;
-      background-color: pink;
+      background: radial-gradient(circle, pink 10%, hotpink 90%);
       color: #222;
-      padding: 2em;
+      padding: 2em 1em;
+      overflow-x: hidden;
+      position: relative;
     }
+
     h1 {
-      font-size: 2.5em;
-      margin-bottom: 1em;
+      font-size: 2em;
+      margin-bottom: 0.5em;
     }
-    iframe {
-      margin: 1em auto;
-      display: block;
-      border: none;
-      border-radius: 12px;
+
+    #hour-info {
+      font-size: 1.2em;
+      margin-bottom: 0.5em;
     }
-  </style>
-</head>
-<body>
-  <h1>Happy 24th Birthday Catie</h1>
-  <div id="video-container"></div>
 
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-
-  <script>
-    confetti({
-      particleCount: 150,
-      spread: 100,
-      origin: { y: 0.6 }
-    });
-
-    const videoURLs = [
-      "https://www.youtube.com/embed/ZDdK_bv69u0",
-      "https://www.youtube.com/embed/oxlErVzh0Kc",
-      "https://www.youtube.com/embed/e74XpwoTJNA",
-      "https://www.youtube.com/embed/74xNOMM77JQ",
-      "https://www.youtube.com/embed/-ArZ7wAaNlQ",
-      "https://www.youtube.com/embed/lMfEhpQDjlw",
-      "https://www.youtube.com/embed/H9g344kJmzE",
-      "https://www.youtube.com/embed/1JHwOrQVMfA",
-      "https://www.youtube.com/embed/nzXrj7KVKdI",
-      "https://www.youtube.com/embed/TEoIEOfOk3A"
-    ];
-
-    const container = document.getElementById("video-container");
-    const now = new Date();
-
-    const startTime = new Date();
-    startTime.setDate(startTime.getDate() - 1);
-    startTime.setHours(23, 0, 0, 0); // 11 PM yesterday
-
-    const hoursSinceStart = Math.floor((now - startTime) / (1000 * 60 * 60));
-    let showCount = Math.min(Math.max(hoursSinceStart + 1, 0), videoURLs.length);
-
-    for (let i = 0; i < showCount; i++) {
-      const iframe = document.createElement("iframe");
-      iframe.src = videoURLs[i];
-      iframe.width = "560";
-      iframe.height = "315";
-      iframe.allowFullscreen = true;
-      iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-      iframe.title = `Birthday Video ${i + 1}`;
-      container.appendChild(iframe);
-    }
-  </script>
-</body>
-</html>
+    #countdown {
+      font-size: 1em;
+      margin-bottom:
