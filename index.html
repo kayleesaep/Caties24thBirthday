@@ -19,11 +19,6 @@
       position: relative;
     }
 
-    h1 {
-      font-size: 2em;
-      margin-bottom: 0.5em;
-    }
-
     #hour-info {
       font-size: 1.2em;
       margin-bottom: 0.5em;
@@ -70,9 +65,6 @@
     }
 
     @media (max-width: 600px) {
-      h1 {
-        font-size: 1.8em;
-      }
       #hour-info, #countdown {
         font-size: 1em;
       }
@@ -106,9 +98,8 @@
 </head>
 <body>
   <!-- 🎀 Birthday Banner -->
-  <div class="banner">🎀 Happy 24th Birthday Catie 🎀</div>
+  <div class="banner">🤍 Happy 24th Birthday Catie 🤍</div>
 
-  <h1>Happy 24th Birthday Catie 🎉</h1>
   <div id="hour-info"></div>
   <div id="countdown">Calculating time...</div>
   <div id="video-container"></div>
@@ -160,18 +151,18 @@
       "https://www.youtube.com/embed/ed7s6BroOZU"
     ];
 
-    const CST_OFFSET = -6;
+    const EST_OFFSET = -5;
 
-    function getCSTDate() {
+    function getESTDate() {
       const nowUTC = new Date();
       const utc = nowUTC.getTime() + nowUTC.getTimezoneOffset() * 60000;
-      return new Date(utc + CST_OFFSET * 3600000);
+      return new Date(utc + EST_OFFSET * 3600000);
     }
 
     function getCurrentVideoIndex() {
-      const now = getCSTDate();
+      const now = getESTDate();
       const base = new Date(now);
-      base.setHours(23, 0, 0, 0);
+      base.setHours(0, 0, 0, 0); // midnight EST start
       if (now < base) base.setDate(base.getDate() - 1);
       const msSinceBase = now - base;
       const hoursSince = Math.floor(msSinceBase / (1000 * 60 * 60));
@@ -179,7 +170,7 @@
     }
 
     function getNextUnlockTime() {
-      const now = getCSTDate();
+      const now = getESTDate();
       const next = new Date(now);
       next.setMinutes(0, 0, 0);
       next.setHours(now.getHours() + 1);
@@ -193,7 +184,7 @@
 
     hourInfo.innerText = `🎁 You're on hour ${videoIndex + 1} of 24`;
 
-    // Show ALL videos up to the current hour (inclusive)
+    // Show all videos up to current hour (inclusive)
     for (let i = 0; i <= videoIndex; i++) {
       const iframe = document.createElement("iframe");
       iframe.src = videoURLs[i];
@@ -204,18 +195,18 @@
     }
 
     function updateCountdown() {
-      const now = getCSTDate();
+      const now = getESTDate();
       const next = getNextUnlockTime();
       const diff = next - now;
 
       if (diff <= 0) {
-        location.reload(); // 🔁 Auto-refresh on hour
+        location.reload(); // Auto-refresh on hour
         return;
       }
 
       const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const secs = Math.floor((diff % (1000 * 60)) / 1000);
-      countdown.innerText = `⏳ Next video in ${mins}m ${secs}s (CST)`;
+      countdown.innerText = `⏳ Next video in ${mins}m ${secs}s (EST)`;
     }
 
     updateCountdown();
