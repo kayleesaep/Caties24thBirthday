@@ -20,15 +20,16 @@
 
     /* Balloon floating animation */
     .balloon {
-      position: fixed;
-      width: 80px; /* Adjust size as you like */
-      pointer-events: none;
-      user-select: none;
-      animation-name: floatUp;
-      animation-timing-function: ease-in-out;
-      animation-iteration-count: infinite;
-      opacity: 0.8;
-      z-index: 0;
+  position: fixed;
+  width: 80px;
+  pointer-events: none;
+  user-select: none;
+  animation-name: floatUp;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  opacity: 0.8;
+  z-index: 10; /* Make sure this is higher than sparkles but lower than banner */
+}
     }
 
     @keyframes floatUp {
