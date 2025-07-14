@@ -5,38 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Happy 24th Birthday Catie</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 
   <style>
-<style>
-  body {
-    font-family: 'Quicksand', sans-serif;
-    text-align: center;
-    background: radial-gradient(circle, pink 10%, hotpink 90%);
-    color: #222;
-    padding: 4em 1em 2em;
-    overflow-x: hidden;
-    position: relative;
-  }
-</style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      text-align: center;
+      background: radial-gradient(circle, pink 10%, hotpink 90%);
+      color: #222;
+      padding: 4em 1em 2em;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-    /* Intro Message */
     #intro-text {
-      font-family: Arial, sans-serif;
       max-width: 600px;
       margin: 3.5em auto 1em;
       color: #222;
-      line-height: 1.3;
-      font-size: 1em;
+      line-height: 1.4;
+      font-size: 1.1em;
     }
 
     #hour-info {
-      font-size: 1.2em;
-      margin-bottom: 0.5em;
+      font-size: 1.3em;
+      margin: 1em 0 0.5em;
     }
 
     #countdown {
-      font-size: 1em;
+      font-size: 1.1em;
       margin-bottom: 1em;
     }
 
@@ -68,12 +65,6 @@
       100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
     }
 
-    @media (max-width: 600px) {
-      #hour-info, #countdown {
-        font-size: 1em;
-      }
-    }
-
     .banner {
       position: fixed;
       top: 0;
@@ -103,12 +94,37 @@
     body > #video-container {
       margin-top: 3.5em;
     }
+
+    @media (max-width: 600px) {
+      body {
+        font-size: 1em;
+        padding: 3em 0.5em 2em;
+      }
+
+      #intro-text {
+        font-size: 1em;
+        margin: 2em 1em;
+      }
+
+      #hour-info,
+      #countdown {
+        font-size: 1em;
+      }
+
+      iframe {
+        height: 200px;
+      }
+
+      .banner {
+        font-size: 1.2em;
+        padding: 0.5em;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="banner">🤍 Happy 24th Birthday Catie 🤍</div>
 
-  <!-- Intro Text -->
   <div id="intro-text">
     <p>
       An edit will come up every hour for the next 24 hours (24 edits, for your 24th birthday, to make up for 24 years of not knowing you).
@@ -126,7 +142,7 @@
   <div id="countdown">Calculating time...</div>
   <div id="video-container"></div>
 
-  <!-- Confetti -->
+  <!-- Confetti + Sparkles -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
     confetti({
@@ -186,7 +202,7 @@
       if (now < base) base.setDate(base.getDate() - 1);
       const msSinceBase = now - base;
       const hoursSince = Math.floor(msSinceBase / (1000 * 60 * 60));
-      return Math.min(hoursSince % 24, 23); // max 23 (0-indexed), for 24 videos
+      return Math.min(hoursSince % 24, 23); // max 23 (0-indexed)
     }
 
     function getNextUnlockTime() {
@@ -202,14 +218,14 @@
     const countdown = document.getElementById("countdown");
     const videoIndex = getCurrentVideoIndex();
 
-    hourInfo.innerText = 🎁 You're on hour ${videoIndex + 1} of 24;
+    hourInfo.innerText = `🎁 You're on hour ${videoIndex + 1} of 24`;
 
     for (let i = 0; i <= videoIndex && i < videoURLs.length; i++) {
       const iframe = document.createElement("iframe");
       iframe.src = videoURLs[i];
       iframe.allowFullscreen = true;
       iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-      iframe.title = Birthday Video ${i + 1};
+      iframe.title = `Birthday Video ${i + 1}`;
       container.appendChild(iframe);
     }
 
@@ -225,7 +241,7 @@
 
       const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const secs = Math.floor((diff % (1000 * 60)) / 1000);
-      countdown.innerText = ⏳ Next video in ${mins}m ${secs}s;
+      countdown.innerText = `⏳ Next video in ${mins}m ${secs}s`;
     }
 
     updateCountdown();
