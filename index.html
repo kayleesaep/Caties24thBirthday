@@ -5,42 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Happy 24th Birthday Catie</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      font-family: 'Quicksand', sans-serif;
-      text-align: center;
-      background: radial-gradient(circle, pink 10%, hotpink 90%);
-      color: #222;
-      padding: 4em 1em 2em;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Balloon floating animation */
-    .balloon {
-      position: fixed;
-      width: 80px; /* Adjust size */
-      pointer-events: none;
-      user-select: none;
-      animation-name: floatUp;
-      animation-timing-function: ease-in-out;
-      animation-iteration-count: infinite;
-      opacity: 0.8;
-      z-index: 0;
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translateY(100vh) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-20vh) scale(0.7);
-        opacity: 0;
-      }
-    }
+<style>
+  body {
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+    background: radial-gradient(circle, pink 10%, hotpink 90%);
+    color: #222;
+    padding: 4em 1em 2em;
+    overflow-x: hidden;
+    position: relative;
+  }
+</style>
 
     /* Intro Message */
     #intro-text {
@@ -166,18 +144,6 @@
       document.body.appendChild(sparkle);
     }
 
-    // Floating balloons background
-    const balloonCount = 10; // Number of balloons
-    for (let i = 0; i < balloonCount; i++) {
-      const balloon = document.createElement("img");
-      balloon.src = "images/02c275e5-343a-46c0-ba94-a1ede48bfbdc.png"; // Your balloon PNG path
-      balloon.className = "balloon";
-      balloon.style.left = Math.random() * 90 + "vw"; // Random horizontal position
-      balloon.style.animationDuration = (8 + Math.random() * 7) + "s"; // 8-15 seconds float
-      balloon.style.animationDelay = (Math.random() * 15) + "s"; // Stagger start
-      document.body.appendChild(balloon);
-    }
-
     const videoURLs = [
       "https://www.youtube.com/embed/ZDdK_bv69u0",
       "https://www.youtube.com/embed/oxlErVzh0Kc",
@@ -216,11 +182,11 @@
     function getCurrentVideoIndex() {
       const now = getESTDate();
       const base = new Date(now);
-      base.setHours(0, 0, 0, 0);
+      base.setHours(0, 0, 0, 0); // midnight EST
       if (now < base) base.setDate(base.getDate() - 1);
       const msSinceBase = now - base;
       const hoursSince = Math.floor(msSinceBase / (1000 * 60 * 60));
-      return Math.min(hoursSince % 24, 23);
+      return Math.min(hoursSince % 24, 23); // max 23 (0-indexed), for 24 videos
     }
 
     function getNextUnlockTime() {
@@ -236,14 +202,14 @@
     const countdown = document.getElementById("countdown");
     const videoIndex = getCurrentVideoIndex();
 
-    hourInfo.innerText = `🎁 You're on hour ${videoIndex + 1} of 24`;
+    hourInfo.innerText = 🎁 You're on hour ${videoIndex + 1} of 24;
 
     for (let i = 0; i <= videoIndex && i < videoURLs.length; i++) {
       const iframe = document.createElement("iframe");
       iframe.src = videoURLs[i];
       iframe.allowFullscreen = true;
       iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-      iframe.title = `Birthday Video ${i + 1}`;
+      iframe.title = Birthday Video ${i + 1};
       container.appendChild(iframe);
     }
 
@@ -259,7 +225,7 @@
 
       const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const secs = Math.floor((diff % (1000 * 60)) / 1000);
-      countdown.innerText = `⏳ Next video in ${mins}m ${secs}s`;
+      countdown.innerText = ⏳ Next video in ${mins}m ${secs}s;
     }
 
     updateCountdown();
