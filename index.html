@@ -170,7 +170,7 @@
     const balloonCount = 10; // Number of balloons
     for (let i = 0; i < balloonCount; i++) {
       const balloon = document.createElement("img");
-      balloon.src = "images/catballoon.png"; // Your balloon PNG path
+      balloon.src = "images/catballoon.png"; // Your balloon PNG path, make sure this exists in your repo!
       balloon.className = "balloon";
       balloon.style.left = Math.random() * 90 + "vw"; // Random horizontal position
       balloon.style.animationDuration = (8 + Math.random() * 7) + "s"; // 8-15 seconds float
@@ -216,11 +216,11 @@
     function getCurrentVideoIndex() {
       const now = getESTDate();
       const base = new Date(now);
-      base.setHours(0, 0, 0, 0);
+      base.setHours(0, 0, 0, 0); // midnight EST
       if (now < base) base.setDate(base.getDate() - 1);
       const msSinceBase = now - base;
       const hoursSince = Math.floor(msSinceBase / (1000 * 60 * 60));
-      return Math.min(hoursSince % 24, 23);
+      return Math.min(hoursSince % 24, 23); // max 23 (0-indexed), for 24 videos
     }
 
     function getNextUnlockTime() {
