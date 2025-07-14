@@ -20,16 +20,15 @@
 
     /* Balloon floating animation */
     .balloon {
-  position: fixed;
-  width: 80px;
-  pointer-events: none;
-  user-select: none;
-  animation-name: floatUp;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  opacity: 0.8;
-  z-index: 10; /* Make sure this is higher than sparkles but lower than banner */
-}
+      position: fixed;
+      width: 80px;
+      pointer-events: none;
+      user-select: none;
+      animation-name: floatUp;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      opacity: 0.8;
+      z-index: 10; /* above sparkles but below banner */
     }
 
     @keyframes floatUp {
@@ -167,15 +166,17 @@
       document.body.appendChild(sparkle);
     }
 
-    // Floating balloons background
-    const balloonCount = 10; // Number of balloons
+    // Floating cat balloons background with base64 cat balloon image
+    const balloonCount = 10;
+    const base64CatBalloon = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAIAAAAlC+aJAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAA30lEQVR4nO3QQQkCMQwDQOn9dzKJdgEStYPeW+fhrH98p+3i8jiX7gG5uALY1cjj2VhuDzN+nszTbAG+r8Qdxn8qjHCR7H5r3hLgLHZgzDaLxFY+G4p1oXNzvVj28GyHHytXzhKh7pLTbqTTf3wlWfeNQb8qLLS8QvQR7xuWqcO64DxPyxJ9z3n3hLR/ku7fmEB0J9w+6rz+5hsu2t5csA95TDZtCAQDxFgV8l+F1EPwAAAABJRU5ErkJggg==";
+
     for (let i = 0; i < balloonCount; i++) {
       const balloon = document.createElement("img");
-      balloon.src = "images/catballoon.png"; // Your balloon PNG path, make sure this exists in your repo!
+      balloon.src = base64CatBalloon;
       balloon.className = "balloon";
-      balloon.style.left = Math.random() * 90 + "vw"; // Random horizontal position
-      balloon.style.animationDuration = (8 + Math.random() * 7) + "s"; // 8-15 seconds float
-      balloon.style.animationDelay = (Math.random() * 15) + "s"; // Stagger start
+      balloon.style.left = Math.random() * 90 + "vw";
+      balloon.style.animationDuration = (8 + Math.random() * 7) + "s";
+      balloon.style.animationDelay = (Math.random() * 15) + "s";
       document.body.appendChild(balloon);
     }
 
@@ -217,11 +218,11 @@
     function getCurrentVideoIndex() {
       const now = getESTDate();
       const base = new Date(now);
-      base.setHours(0, 0, 0, 0); // midnight EST
+      base.setHours(0, 0, 0, 0);
       if (now < base) base.setDate(base.getDate() - 1);
       const msSinceBase = now - base;
       const hoursSince = Math.floor(msSinceBase / (1000 * 60 * 60));
-      return Math.min(hoursSince % 24, 23); // max 23 (0-indexed), for 24 videos
+      return Math.min(hoursSince % 24, 23);
     }
 
     function getNextUnlockTime() {
