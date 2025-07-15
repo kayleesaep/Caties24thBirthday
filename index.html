@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
 
   <style>
+    /* Base styles */
     body {
       font-family: 'Quicksand', sans-serif;
       text-align: center;
@@ -16,20 +17,25 @@
       padding: 4em 1em 2em;
       overflow-x: hidden;
       position: relative;
+      font-size: 1.1rem;
+      line-height: 1.5;
     }
     #intro-text {
       max-width: 600px;
-      margin: 3.5em auto 1em;
+      margin: 3.5em auto 1.5em;
       line-height: 1.4;
       font-size: 1.1em;
+      padding: 0 0.5em;
     }
     #hour-info {
-      font-size: 1.3em;
+      font-size: 1.4em;
       margin: 1em 0 0.5em;
+      font-weight: 600;
     }
     #countdown {
-      font-size: 1.1em;
-      margin-bottom: 1em;
+      font-size: 1.2em;
+      margin-bottom: 1.2em;
+      font-weight: 500;
     }
     iframe {
       width: 100%;
@@ -40,6 +46,7 @@
       border: none;
       border-radius: 12px;
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+      background: black;
     }
     .sparkle {
       position: fixed;
@@ -78,24 +85,32 @@
       75%  { transform: scale(1.01) rotate(0.3deg); }
       100% { transform: scale(1) rotate(0deg); }
     }
+
+    /* Mobile optimization */
     @media (max-width: 600px) {
       body {
-        font-size: 1em;
-        padding: 3em 0.5em 2em;
+        font-size: 1rem;
+        padding: 3em 0.75em 2em;
       }
       #intro-text {
-        font-size: 1em;
-        margin: 2em 1em;
+        font-size: 1rem;
+        margin: 2em 0.75em 1.5em;
       }
-      #hour-info,
+      #hour-info {
+        font-size: 1.2em;
+      }
       #countdown {
-        font-size: 1em;
+        font-size: 1.1em;
+        margin-bottom: 1em;
       }
       iframe {
         height: 200px;
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
       }
       .banner {
-        font-size: 1.2em;
+        font-size: 1.25em;
         padding: 0.5em;
       }
     }
@@ -109,7 +124,7 @@
       An edit will come up every hour for the next 24 hours (24 edits, for your 24th birthday, to make up for 24 years of not knowing you).
     </p>
     <p>
-      Inside each caption of each YouTube video (you’re going to have to click to YouTube) will have a message & the next clue for the next edit.
+      Inside each caption of each YouTube video (you’re going to have to click to YouTube) will have a message &amp; the next clue for the next edit.
     </p>
     <p><strong>First clue:</strong> 🎂♦️♥️♠️♣️</p>
     <p style="font-size: 0.85em; color: #555; margin-top: 0.5em;">
@@ -181,20 +196,11 @@
 
     function getCurrentVideoIndex() {
       const now = getNYDate();
-
-      // Start of "today" in New York (midnight)
       const startOfDay = new Date(now);
       startOfDay.setHours(0, 0, 0, 0);
-
-      // Calculate how many hours have passed since midnight New York time
       const msSinceStart = now - startOfDay;
       const hoursSince = Math.floor(msSinceStart / (1000 * 60 * 60));
-
-      // If before midnight (should never be), show 0
-      if (hoursSince < 0) return 0;
-
-      // Max 23 because 24 videos (0-based)
-      return Math.min(hoursSince, 23);
+      return Math.min(Math.max(hoursSince, 0), 23);
     }
 
     function getNextUnlockTime() {
@@ -211,7 +217,7 @@
 
     function renderVideos() {
       const videoIndex = getCurrentVideoIndex();
-      hourInfo.innerText = `🎁 You're on hour ${videoIndex + 1} of 24`;
+      hourInfo.textContent = `🎁 You're on hour ${videoIndex + 1} of 24`;
 
       container.innerHTML = "";
       for (let i = 0; i <= videoIndex && i < videoURLs.length; i++) {
@@ -230,23 +236,21 @@
       const diff = next - now;
 
       if (diff <= 0) {
-        renderVideos(); // reload videos when the hour changes
+        renderVideos(); // reload videos on the hour
         return;
       }
 
       const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const secs = Math.floor((diff % (1000 * 60)) / 1000);
-      countdown.innerText = `⏳ Next video in ${mins}m ${secs}s`;
+      countdown.textContent = `⏳ Next video in ${mins}m ${secs}s`;
     }
 
-    // Initial render
     renderVideos();
     updateCountdown();
-    // Update countdown every second
     setInterval(() => {
       updateCountdown();
-      // Also update videos right at the top of each hour
-      if (new Date().getMinutes() === 0 && new Date().getSeconds() === 0) {
+      const now = new Date();
+      if (now.getMinutes() === 0 && now.getSeconds() === 0) {
         renderVideos();
       }
     }, 1000);
